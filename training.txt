@@ -1,0 +1,99 @@
+Comment
+
+Ques1: Write a Python script with at least three comments explaining different parts of the code.
+Ques2: Given the following code, identify and correct the missing or incorrect comments:
+def add(a, b):
+    return a + b  # What does this line do?
+
+Variable:
+Ques1:Write a Python program to swap two variables without using a third variable.
+Ques2:Convert the string "1234" into an integer and print its type.
+Ques3:Write a program that assigns different values to a variable and prints its data type.
+
+
+Basic Input/Output:
+Q1: Write a Python program that takes a user's name as input and prints a greeting message.
+Q2: Write a Python program that takes two numbers as input and prints their sum.
+Q3: Write a Python program that takes two numbers as input and swaps their values.
+
+Control Flow:
+If-Else-Elif:
+Ques1: Write a program that takes an integer as input and prints whether it is odd or even.
+Ques2:Write a program that takes a number as input and prints whether it is positive, negative, or zero.
+Ques3:Write a program that asks the user for their marks and prints "Pass" if marks are >=40, otherwise print "Fail".
+
+Logical Operator:
+Q1: Write a program to check if a given number is between 10 and 50.
+Q2:Write a program that takes a number as input and prints "Valid" if it is both even and divisible by 5, otherwise prints "Invalid".
+Q3:A person is eligible to vote if they are 18 or older. Write a program that checks if a user can vote.
+Q4:Write a program that prints "Outside Range" if a given number is not between 100 and 200.
+
+Comparison Operator:
+Q1:Write a function find_max(a, b, c) that takes three numbers and returns the largest one using comparison operators.
+
+Loops:
+Q1:Write a program to print all even numbers from 1 to 20 using a for loop.
+Q2:Write a program using a for loop to print numbers from 1 to 10.
+Q3:Write a program that takes an input N and calculates the sum of numbers from 1 to N using both for and while loops.
+Q4:Write a program that calculates the factorial of a number using both for and while loops.
+
+break, continue, pass:
+
+Nested loops:
+
+data structures:-
+List [1,1,1,2,3]
+Tuple (1,2,3,4)
+Dictionary  {key:value}
+Set (1,2,3,4)
+strings "7647647476456"
+
+list slicing:
+
+value=[1,2,3,4,5,6,7,8,9,9,0,1]
+Q1: Write a code to print value from 0 to 5 by skipping 3 values.
+Q2: Code to reverse list
+Q3: Code to iterate the list 5 to till end.
+
+
+
+Q1: Sum Items in List
+2: Multiply Items in List
+3: Get Largest Number in List
+4: Get Smallest Number in List
+5: Count Strings in List
+6: Remove Duplicates from List
+7: Remove Even Number from List
+8: Convert List to Strings
+9: Find Index of List Item
+10: Split List by First Characters
+
+functions:
+Write a function to find the maximum of three numbers.
+Write a function that takes a string and returns the string reversed.
+Write a function to calculate the factorial of a number.
+Write a function that returns the sum of all numbers in a given list.
+Write a function to check if a given string is a palindrome.
+
+lambda:
+Write a lambda function to add 10 to a given number.
+Write a lambda function to multiply two numbers.
+Write a lambda function to find the maximum of two numbers.
+Write a lambda function that returns True if a number is even, otherwise False.
+Use a lambda function with filter() to get all even numbers from a list.
+Use a lambda function with map() to get the squares of all elements in a list.
+Write a lambda function to check if a given string contains a vowel.
+
+Recursion:
+write a function to calculate factorial of a number.
+WAP to find nth fibonacci number.
+Wap to find the sum of digits of a number.
+
+
+
+
+
+
+
+
+
