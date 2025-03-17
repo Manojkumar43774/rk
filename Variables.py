@@ -671,6 +671,7 @@
 # print(fct(5))
 # WAP to find nth fibonacci number.
 # def fib(n):
+    # iohinjkhnjknjk
 #     if n==0:
 #         return 0
 #     elif n==1:
