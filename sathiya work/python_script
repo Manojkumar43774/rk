@@ -8,5 +8,95 @@ import base64
 import xml.etree.ElementTree as ET
 import csv 
 import pyodbc
-
 import pandas as pd
+
+emp_dict={}
+ait_number = '0000'
+vendor = "MyTransportal"
+type= "emailhtml"
+date_list = []
+
+def generateEGIFXML () :
+    new_root = ET.Element("eCommunications", attrib={"vendor" : vendor})
+    with open("SMS-DATA.csv", 'r', encoding='utf-8-sig') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+
+        for row in csv_reader:
+            emp_id= row['emp_id']
+            emp_mobile = row['emp_mobile']
+            sms_message= row['SMS_MSG']
+            INSERT_DTTM_TXT = row['INSERT_DTTM']
+            input_date = datetime.datetime.strptime(row['INSERT_DTTM'], "%m/%d/%Y %I:%M:%S %p")
+            INSERT_DTTM = input_date.strftime('%Y-%m-%d T%H:%M:%S.%f%z')
+            only_date = input_date.strftime('%Y-%m-%d')
+            #print (INSERT DTTM)
+
+            key = emp_id, only_date
+            if key not in emp_dict:
+                emp_dict[key] = []
+
+            emp_dict[key].append({
+            'emp_id': emp_id,
+            'emp_mobile' : emp_mobile,
+            'INSERT_DITM' : INSERT_DTTM,
+            'INSERT_DITM_TXT': INSERT_DTTM_TXT,
+            'sms_message' : sms_message
+            })
+
+# ------------------------------------------------identation-----------------------------------
+        for key, rows in emp_dict.items () :
+            #print (rows)
+            sorted_data = sorted(rows, key=lambda item: item["INSERT_DTTM"])
+            #print (sorted data)
+            sorted_data = pd.DataFrame(sorted_data).drop_duplicates().to_dict('records') 
+            body_content =""
+            for row in sorted_data:
+                emp_id, only_date = key
+                min_date = row['INSERI_DTTM_TXT']
+                html_content =  f"""
+                <html>
+                    <head></head>
+                    <body>
+                        <div>{row['INSERT_DTTM_TXT']} {emp_id} {row['emp_mobile']} - {row['sms_message']} </div>
+                    </body>
+                </html>
+                """
+                body_content += html_content
+    # -----------------------------------------------------issue 65-----------------------------------------------
+            message = ET.Element("message", attrib={"date" : row['INSERT_DTTM'] + " " + "GMT", 
+                                                    "subject" : "MyTransportal : EMPID: "  f'{emp_id}'", ""Date: " f'{min_date}',"type":type})
+            r_ml = "true"
+            r_type = "to"
+            s_ml = "o"
+            s_emailAddress = "ReviewArchiver@ReviewLink.bofa.com"
+            r_email = emp_id +"@bofa.com"
+            sender = ET.Element("sender", attrib={"ml": s_ml, "emailAddress" : s_emailAddress})
+            message.append(sender)
+            
+            recipients = ET.Element("recipients")
+            recipient = ET.Element("recipient", attrib={"type" : r_type, " ml":r_ml, " vendorUserid": "PERSONAL", " emailAddress": r_email})
+            recipients.append(recipient)
+            message.append(recipients)
+
+            body = ET.Element("body")
+            body.text = f"<![CDATA [{body_content}]]>"
+
+            message.append(body)
+            new_root.append(message)
+
+# --------------------------------------------------------------------------------------------------------
+        new_tree = ET.ElementTree(new_root)
+        modified_xml = ET.tostring(new_root, encoding="utf-8", method="xml").decode()
+        modified_data = modified_xml.replace('&lt;', '<').replace('&gt;','>')
+
+        with open ("test.xml", 'a' , encoding='utf-8') as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            t_date=datetime.datetime.utcnow().date()
+            start_date= t_date.strftime("%Y-%m-%d T%H:%M:%S")
+            f.write('<mlcargif ver="1.0" date="' + start_date + '">')
+            f.write('\n')
+            f.write(modified_data)
+            f.write('</mlcargif>\r\n')
+            f.closed
+
+generateEGIFXML()
